@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http//www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>hello Thymeleaf</title>
+</head>
+<body>
+	<p>
+		Thymeleafのサンプル:<a target="_blank"
+			href="https://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf_ja.html#thtext-%E3%81%A8%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88%E3%81%AE%E5%A4%96%E9%83%A8%E5%8C%96">参考サイト</a>
+	</p>
+	<h3>文字列の置換の例です...</h3>
+	<p th:text="#{content.title}">NoServerタイトル</p>
+	<p th:text="#{content.inputName}">NoServerインプット</p>
+	<p th:text="#{content.wellcome(${name})}">ようこそ, [NoServer] さん</p>
+	<p th:text="#{content.yourLocale(${#locale}) }">あなたのロケールは、[デフォルト]です。</p>
+	<p
+		th:text="#{content.DispDate( ${#dates.format( #dates.createToday(),'yyyy/MMM/dd')} )}">今日は、[yyyy/mm/dd]
+		です。</p>
+
+	<h3>リンクの置換の例です...</h3>
+	<p th:text="#{content.menuTitle}">メニュー NoServer</p>
+	<ol>
+		<li><a href="" th:href="#{menuitem.href1}"
+			th:target="#{menuitem.target1}"> <span
+				th:text="#{menuitem.name1}">リンク1 NoServer</span>
+		</a></li>
+		<li><a href="" th:href="#{menuitem.href2}"
+			th:target="#{menuitem.target2}"> <span
+				th:text="#{menuitem.name2}">リンク2 NoServer</span>
+		</a></li>
+		<li><a href="" th:href="#{menuitem.href3}"
+			th:target="#{menuitem.target3}"> <span
+				th:text="#{menuitem.name3}">リンク3 NoServer</span>
+		</a></li>
+		<li><a href="" th:href="#{menuitem.href4}"
+			th:target="#{menuitem.target4}"> <span
+				th:text="#{menuitem.name4}">リンク4 NoServer</span>
+		</a></li>
+	</ol>
+
+	<h3>繰り返しの例です...</h3>
+	<table>
+		<tr>
+			<th:block th:each="tableHeader : ${tableHeaders}">
+				<th th:text="${tableHeader}">NoServerヘッダー列1</th>
+			</th:block>
+		</tr>
+
+		<tr th:each="tableData : ${tableDatas}">
+			<!-- 行方向のループ -->
+			<th:block th:each="colData : ${tableData}">
+				<!-- 列方向のループ -->
+				<td th:text="${colData}">NoServerデータ列1
+				</th>
+			</th:block>
+
+		</tr>
+	</table>
+
+	<h3>ページネーションの例です...</h3>
+	<p>
+		ページネーションのサンプル:<a target="_blank"
+			href="https://qiita.com/KevinFQ/items/ca68a3001bae19f92879">参考サイト</a>
+	</p>
+
+
+</body>
+</html>
