@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- resource/staticディレクトリからのロケーションを指定する -->
+<link rel="stylesheet" href="/css/normalize.css" th:href="@{/css/normalize.css}">
+<link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}">
+</head>
+
+<body>
+	<div id="wrapper" class="clearfix">
+		<div id="header" th:include="fragment/header::headerhtml"></div>
+		<div id="content" class="clearfix">		
+			<header>
+				<h1>Functional menu</h1>
+				<div id="side" th:include="fragment/sidemenu::sidemenuhtml"></div>
+			</header>
+			
+			<article><section>
+				<div id="main" th:include="'fragment/'+${mainframeName}::${mainframeName}"></div>
+			</section></article>
+		</div>
+
+		<footer>
+			<div id="footer" th:include="fragment/footer::footerhtml"></div>
+		</footer>
+	</div>
+</body>
+</html>
