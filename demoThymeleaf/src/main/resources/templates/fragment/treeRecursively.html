@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ツリー構造のルート</title>
+</head>
+<body>
+	<div th:fragment="item">
+		<span th:text="${node.getText()}">
+		(item's content here)
+		</span>
+		<ul>
+			<li th:each="node : ${node.elements()}">
+				<div th:replace="fragment/treeRecursively::item">
+				(sub-nodes here)
+				</div>
+			</li>
+		</ul>
+	</div>
+
+</body>
+</html>
