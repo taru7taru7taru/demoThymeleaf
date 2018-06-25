@@ -10,12 +10,12 @@
 			th:target="${node.attributeValue('target')}"> 
 			<span th:text="${node.getText()}">リンク1 NoServer</span>
 		</a>
-		(item's content here)
+		<!-- (item's content here) -->
 		</span>
 		<ul>
 			<li th:each="node : ${node.elements()}">
 				<div th:replace="fragment/treeRecursively::item">
-				(sub-nodes here)
+				<!-- (sub-nodes here) -->
 				</div>
 			</li>
 		</ul>

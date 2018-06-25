@@ -47,18 +47,23 @@ public class ThymeleafController {
 		
 		Document newDoc = DocumentHelper.createDocument();
 		Element newRoot = newDoc.addElement("root");
-		newRoot.setText("rootText");
+		newRoot.setText("初期画面へ戻る");
 		newRoot.addAttribute("href", "");
 		newRoot.addAttribute("target", "");
 		
 		//メソッドチェーンで追加する
-		newRoot.addElement("link1").setText("link1text"); 
+		newRoot.addElement("link1").setText("hansontableデモ"); 
 		//newRoot.element("link1").addAttribute("href", "http://www.google.co.jp/");
 		newRoot.element("link1").addAttribute("href", "/Dummy1.html");
 		newRoot.element("link1").addAttribute("target", "MainPage");
+
+		//メソッドチェーンで追加する
+		newRoot.element("link1").addElement("link3").setText("ダミー３");
+		newRoot.element("link1").element("link3").addAttribute("href", "/Dummy3.html");
+		newRoot.element("link1").element("link3").addAttribute("target", "MainPage");
 		
 		//メソッドチェーンで追加する
-		newRoot.addElement("link2").setText("link2text");
+		newRoot.addElement("link2").setText("d3デモ");
 		newRoot.element("link2").addAttribute("href", "/Dummy2.html");
 		newRoot.element("link2").addAttribute("target", "MainPage");
 

@@ -3,8 +3,128 @@
 <head>
 <meta charset="UTF-8">
 <title>Dummy2</title>
+<script type="text/javascript" src="js/d3-5.5.0/d3.min.js" ></script> 
+<link rel="stylesheet" href="css/Dummy2.css" />
+
 </head>
 <body>
+<!-- 参考サイト：https://ajike.github.io/D3.js%E3%81%A7%E3%82%B0%E3%83%A9%E3%83%95%E5%AE%9F%E8%A3%85~%E4%B8%80%E8%A1%8C%E3%81%9A%E3%81%A4%E8%AA%AD%E3%81%BF%E8%A7%A3%E3%81%8F%E5%85%A5%E9%96%80%E7%B7%A8~/ -->
 ダミーページ２です...
+<span class="js_toolTip"></span>
+
+<!-- ダミー用のデータ -->
+<script type="text/javascript" src="js/DummyData.js"></script>
+
+<!-- d3でグラフを描画するスクリプト -->
+<script type="text/javascript" >
+/* 
+//SVGの領域を作る
+var svg = d3.select("body")
+	.append("svg")
+	.attr("width",500)
+	.attr("height",300);
+//円を描く
+var circles1 = svg
+	.append("circle")
+	.attr("cx",100)
+	.attr("cy",100)
+	.attr("r",100)
+	.attr("fill","#f0f");
+
+ */
+ 
+ //データ
+/*  var d3_data = [
+	 {'mTime': '2018-06-26T10:00','val': 100 },
+	 {'mTime': '2018-06-26T10:01','val': 200 },
+	 {'mTime': '2018-06-26T10:02','val': 1000 },
+	 {'mTime': '2018-06-26T10:03','val': 2000 },
+	 {'mTime': '2018-06-26T10:04','val': 3000 },
+	 {'mTime': '2018-06-26T10:05','val': 4500 },
+	 {'mTime': '2018-06-26T10:06','val': 5000 }
+ ]; */
+ //余白の設定
+var margin = {
+	top: 30,
+	right: 30,
+	bottom: 50,
+	left: 80
+};
+//グラフのサイズの設定
+var size = {
+	width: 1000 - margin.left - margin.right,
+	height: 350 - margin.top - margin.bottom
+};
+var svg = d3.select("body")
+	.append("svg")
+	.attr("width", size.width + margin.left + margin.right)
+	.attr("height", size.height + margin.top + margin.bottom)
+	.append("g")
+	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var yScale = d3.scaleLinear()
+	.domain([10000, 0])
+	.range([0, size.height]);
+
+var xScale = d3.scaleTime()
+	.domain([new Date(d3_data[0].mTime), new Date(d3_data[d3_data.length-1].mTime)])
+	.range([0, size.width]);
+
+//ｙ軸を描画
+svg.append("g")
+	.call(
+		d3.axisLeft(yScale)
+			.ticks(10)
+	)
+	.append("text")
+	.text("計測値")
+	.attr("stroke", "#000")
+	.attr("x",-30)
+	.attr("y",-10);
+//X軸を描画
+svg.append("g")
+	.attr("transform", "translate(0," + size.height +  ")")
+	.call(
+		d3.axisBottom(xScale)
+			.tickFormat(d3.timeFormat("%m-%d %H:%M"))
+			.ticks(7)
+	)
+	.append("text")
+	.text("計測時刻")
+	.attr("x", size.width/2 )
+	.attr("y", margin.bottom - 10);
+
+//折れ線グラフ描画関数
+var line = d3.line()
+	.x(function(d,i) { return xScale(new Date(d.mTime)); })
+	.y(function(d,i) { return yScale(d.val); });
+	
+//折れ線グラフを描画
+svg.append("path")
+	.datum(d3_data)
+	.attr("d", line)
+	.attr("stroke","#000")
+	.attr("fill","none");
+
+//折れ線のグラフの頂点に印をつける
+svg.selectAll("circle")
+  .data(d3_data)
+  .enter()
+  .append('circle')
+  .attr("cx",line.x())
+  .attr("cy",line.y())
+  .attr("r",3)
+  .attr("fill","#000")
+　　.on("mouseenter", function(d) {
+    d3.select('.js_toolTip').style("top", (event.pageY-30)+"px")
+      .style("left",(event.pageX)+"px")
+      .text(d.val + "m3")
+      .style("display", "inline-block");
+  })
+  .on("mouseout", function(d){
+    d3.select('.js_toolTip').style("display", "none");
+  });
+  
+</script>
 </body>
 </html>
