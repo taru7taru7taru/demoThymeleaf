@@ -6,7 +6,10 @@
 </head>
 <body>
 	<div th:fragment="item">
-		<span th:text="${node.getText()}">
+		<a href="" th:href="${node.attributeValue('href')}"
+			th:target="${node.attributeValue('target')}"> 
+			<span th:text="${node.getText()}">リンク1 NoServer</span>
+		</a>
 		(item's content here)
 		</span>
 		<ul>
