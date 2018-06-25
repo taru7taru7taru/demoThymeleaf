@@ -3,8 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <title>Dummy1</title>
+<script type="text/javascript" src="js/handsontable-4.0.0/handsontable.full.min.js" ></script> 
+<link rel="stylesheet" href="js/handsontable-4.0.0/handsontable.full.min.css" />
 </head>
-<body>
+<body onload="aaa()">
 ダミーページ１です...
+<button id='edit'>編集</button>(編集中は矢印キーでの移動を無効にしています...)
+<div id="grid">ここにhandsontableの表が表示されます...</div>
+
+<script type="text/javascript">
+//参考サイト：https://qiita.com/opengl-8080/items/ac19deec388c357cd498,http://www.go-next.co.jp/blog/web/javascript/17934/,
+//			https://qiita.com/opengl-8080/items/9d25e106ff48b66cb908
+	var data= [
+			['いと',1],
+			['くり',3],
+			['ｽｲｯﾁ',2]
+	];
+	var grid = document.getElementById('grid');
+	var table = new Handsontable(grid, {		
+		//表示データ
+		data: data,
+		//幅
+		width: 800,
+		//高さ
+		height: 300,
+		//列幅
+		colWidths: 100,
+		//行高さ
+		rowHeights: 50,
+		//行ヘッダー
+		rowHeaders: true,
+		//列ヘッダー
+		colHeaders: true,
+		//最大列数
+		maxCols: 10,
+		//最小列数
+		minSpareCols: 8,
+		//最大行数
+		maxRows:1000,
+		//最小行数
+		minSpareRows: 800,
+		//コメントを表示
+		comments: true,
+		//列の固定コンテキストメニューを表示
+		//manualColumnFreeze: true,
+		//列を固定
+		fixedColumnsLeft: 1,		
+		//行を固定
+		fixedRowsTop: 1,
+		//行方向を並び替え、並び替えする列番号を指定できる
+		columnSorting: true,
+		columnSorting: {
+			column: 1,	//0始まり
+			sortOrder: 'asc',
+			sortEmptyCells: true
+		},		
+		//現在のソートの向きを表示
+		sortIndicator: true,
+		//コンテキストメニューを表示
+		contextMenu: true,
+		//コンテキストメニューの表示を日本語にする
+		/* 日本語化する場合は、必要なメニュー分を全部記載する必要がある...
+		contextMenu: {
+			items: {
+				'row_above': {name: '１行上に挿入'},
+				'row_below': {name: '１行下に挿入'}
+			}
+		}
+		*/
+	});
+	
+	//編集ボタンを押したときのイベントを追加
+	document.getElementById('edit').addEventListener('click', function(){
+		Handsontable.hooks.run(table, 'editCell');
+	});
+	
+	//セルを編集可能にする
+	Handsontable.hooks.add('editCell', function(){
+		//セルを選択
+		this.selectCell(0,0);
+		//エディタを取得
+		var editor = this.getActiveEditor();
+		//編集を開始
+		editor.beginEditing();
+	});
+	
+	Handsontable.hooks.add('beforeKeyDown', function(e){
+		//エディタを取得
+		var editor = this.getActiveEditor();
+		
+		//編集中は、上下の矢印キーの移動を無効にする
+		if(editor.isOpened() && isArrowKey(e.keyCode)){
+			e.stopImmediatePropagation();
+		}
+	});
+
+	function isArrowKey(keyCode){
+		return Handsontable.helper.isKey(keyCode, 'ARROW_UP|ARROW_DOWN|ARROW_LEFT|ARROW_RIGHT');
+	}
+	
+</script>
+
+
 </body>
 </html>
