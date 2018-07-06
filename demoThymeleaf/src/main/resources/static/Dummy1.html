@@ -4,12 +4,31 @@
 <meta charset="UTF-8">
 <title>Dummy1</title>
 <script type="text/javascript" src="js/handsontable-4.0.0/handsontable.full.min.js" ></script> 
+<script type="text/javascript" src="js/DummyData.js"></script>
+<script type="text/javascript">
+//補助情報を隠す
+function suppleDispHide(){
+	if(document.getElementById('suppleDispButton').innerHTML == '-'){
+		document.getElementById('grid_supplement').style.display="none";
+		document.getElementById('suppleDispButton').innerHTML='+';
+	}else{
+		document.getElementById('grid_supplement').style.display="block";
+		document.getElementById('suppleDispButton').innerHTML='-';		
+	}
+}
+</script>
 <link rel="stylesheet" href="js/handsontable-4.0.0/handsontable.full.min.css" />
+
 </head>
 <body onload="aaa()">
 ダミーページ１です...
-<button id='edit'>編集</button>(編集中は矢印キーでの移動を無効にしています...)
-<div id="grid">ここにhandsontableの表が表示されます...</div>
+<button type='button' id='edit'>編集</button>(編集中は矢印キーでの移動を無効にしています...)<br>
+
+<button type='button' id='suppleDispButton' onclick='suppleDispHide()' >-</button>
+
+<div id="grid_supplement"></div>
+<div id="grid_header"></div>
+<div id="grid_data">ここにhandsontableの表が表示されます...</div>
 
 <!-- ダミー用のデータ -->
 <script type="text/javascript" src="js/DummyData.js"></script>
@@ -18,18 +37,150 @@
 <script type="text/javascript">
 //参考サイト：https://qiita.com/opengl-8080/items/ac19deec388c357cd498,http://www.go-next.co.jp/blog/web/javascript/17934/,
 //			https://qiita.com/opengl-8080/items/9d25e106ff48b66cb908
-	var grid = document.getElementById('grid');
-/* 	var spread_data= [
-		['いと',1],
-		['くり',3],
-		['ｽｲｯﾁ',2]
-	];
- */	
- 	var table = new Handsontable(grid, {		
+	var grid_supplement = document.getElementById('grid_supplement');
+ 	var table = new Handsontable(grid_supplement, {		
 		//表示データ
-		data: spread_data,
+		data: spread_2_supplement,
 		//幅
-		width: 800,
+		width: 920,
+		//高さ
+		height: 185,
+		//列幅
+		colWidths: 100,
+		//行高さ
+		rowHeights: 30,
+		//行ヘッダー
+		rowHeaders: false,
+		//列ヘッダー
+		colHeaders: false,
+		//最大列数
+		maxCols: 9,
+		//最小列数
+		minSpareCols: 9,
+		//最大行数
+		maxRows:6,
+		//最小行数
+		minSpareRows: 6,
+		//コメントを表示
+		comments: true,
+	    columns: [
+	        { readOnly: true},
+	        { readOnly: true},
+	        { readOnly: true},
+	        { readOnly: true},
+	        { readOnly: true},
+	        { readOnly: true},
+	        { readOnly: true},
+	        { readOnly: true},
+	        { readOnly: true},
+	    ],
+		//列の固定コンテキストメニューを表示
+		//manualColumnFreeze: true,
+		//列を固定
+		//fixedColumnsLeft: 1,		
+		//行を固定
+		//fixedRowsTop: 1,
+		//行方向を並び替え、並び替えする列番号を指定できる
+		//columnSorting: true,
+		//デフォルトのソート条件を指定
+/* 		columnSorting: {
+			column: 1,	//0始まり
+			sortOrder: 'asc',
+			sortEmptyCells: true
+		},		
+ */		
+ 		//現在のソートの向きを表示
+		//sortIndicator: true,
+		//コンテキストメニューを表示
+		//contextMenu: true,
+		//コンテキストメニューの表示を日本語にする
+		/* 日本語化する場合は、必要なメニュー分を全部記載する必要がある...
+		contextMenu: {
+			items: {
+				'row_above': {name: '１行上に挿入'},
+				'row_below': {name: '１行下に挿入'}
+			}
+		}
+		*/
+	});
+
+
+
+
+	var grid_header = document.getElementById('grid_header');
+ 	var table = new Handsontable(grid_header, {		
+		//表示データ
+		data: spread_2_header,
+		//幅
+		width: 920,
+		//高さ
+		height: 55,
+		//列幅
+		colWidths: 100,
+		//行高さ
+		rowHeights: 50,
+		//行ヘッダー
+		rowHeaders: false,
+		//列ヘッダー
+		colHeaders: false,
+		//最大列数
+		maxCols: 9,
+		//最小列数
+		minSpareCols: 9,
+		//最大行数
+		maxRows:1,
+		//最小行数
+		minSpareRows: 1,
+		//コメントを表示
+		comments: true,
+	    columns: [
+	        { readOnly: true},
+	        { readOnly: true},
+	        { readOnly: true},
+	        { readOnly: true},
+	        { readOnly: true},
+	        { readOnly: true},
+	        { readOnly: true},
+	        { readOnly: true},
+	        { readOnly: true},
+	    ],
+		//列の固定コンテキストメニューを表示
+		//manualColumnFreeze: true,
+		//列を固定
+		//fixedColumnsLeft: 1,		
+		//行を固定
+		//fixedRowsTop: 1,
+		//行方向を並び替え、並び替えする列番号を指定できる
+		//columnSorting: true,
+		//デフォルトのソート条件を指定
+/* 		columnSorting: {
+			column: 1,	//0始まり
+			sortOrder: 'asc',
+			sortEmptyCells: true
+		},		
+ */		
+ 		//現在のソートの向きを表示
+		//sortIndicator: true,
+		//コンテキストメニューを表示
+		//contextMenu: true,
+		//コンテキストメニューの表示を日本語にする
+		/* 日本語化する場合は、必要なメニュー分を全部記載する必要がある...
+		contextMenu: {
+			items: {
+				'row_above': {name: '１行上に挿入'},
+				'row_below': {name: '１行下に挿入'}
+			}
+		}
+		*/
+	});
+
+ 	
+	var grid_data = document.getElementById('grid_data');
+ 	var table = new Handsontable(grid_data, {		
+		//表示データ
+		data: spread_2_data,
+		//幅
+		width: 920,
 		//高さ
 		height: 300,
 		//列幅
@@ -37,34 +188,54 @@
 		//行高さ
 		rowHeights: 50,
 		//行ヘッダー
-		rowHeaders: true,
+		rowHeaders: false,
 		//列ヘッダー
-		colHeaders: true,
+		colHeaders: false,
 		//最大列数
-		maxCols: 10,
+		maxCols: 9,
 		//最小列数
-		minSpareCols: 8,
+		minSpareCols: 9,
 		//最大行数
 		maxRows:1000,
 		//最小行数
 		minSpareRows: 800,
 		//コメントを表示
 		comments: true,
-		//列の固定コンテキストメニューを表示
+		//日付型にする
+	    columns: [
+	        {
+	            type: 'date',
+	            dateFormat: 'YYYY-MM-DD',
+	            datePickerConfig: {
+	                minDate: new Date()
+	            }
+	        },
+	        {type:'numeric'},
+	        {type:'numeric'},
+	        {type:'numeric'},
+	        {type:'numeric'},
+	        {type:'numeric'},
+	        {type:'numeric'},
+	        {type:'numeric'},
+	        {type:'numeric'},
+	    ],
+ 		//列の固定コンテキストメニューを表示
 		//manualColumnFreeze: true,
 		//列を固定
-		fixedColumnsLeft: 1,		
+		//fixedColumnsLeft: 1,		
 		//行を固定
-		fixedRowsTop: 1,
+		//fixedRowsTop: 1,
 		//行方向を並び替え、並び替えする列番号を指定できる
-		columnSorting: true,
-		columnSorting: {
+		//columnSorting: true,
+		//デフォルトのソート条件を指定
+/* 		columnSorting: {
 			column: 1,	//0始まり
 			sortOrder: 'asc',
 			sortEmptyCells: true
 		},		
-		//現在のソートの向きを表示
-		sortIndicator: true,
+ */		
+ 		//現在のソートの向きを表示
+		//sortIndicator: true,
 		//コンテキストメニューを表示
 		contextMenu: true,
 		//コンテキストメニューの表示を日本語にする
